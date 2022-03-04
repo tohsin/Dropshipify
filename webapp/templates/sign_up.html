@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %} 
+Login 
+{% endblock %}
+
+{% block content %}
+
+<h1> Sign Up </h1>
+
+<form action ="" method = "POST" ,novalidate>
+    <h3 align ="center">Sign up</h3>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.Email.label }}<br>
+        {{ form.Email(size=32) }}
+    </p>
+    <p>
+        {{ form.first_name.label }}<br>
+        {{ form.first_name(size=32) }}
+    </p>
+    <p>
+        {{ form.last_name.label }}<br>
+        {{ form.last_name(size=32) }}
+    </p>
+    <p>
+        {{ form.mailing_address.label }}<br>
+        {{ form.mailing_address(size=32) }}
+    </p>
+    <p>
+        {{ form.mialing_phone_number.label }}<br>
+        {{ form.mialing_phone_number(size=32) }}
+    </p>
+    
+    <p>
+        {{ form.password1.label }}<br>
+        {{ form.password1(size=32) }}
+    </p>
+    <p>
+        {{ form.password2.label }}<br>
+        {{ form.password2(size=32) }}
+    </p>
+
+    <br />
+    <p>{{ form.submit() }}</p>
+
+
+</form>
+
+{% endblock %}
