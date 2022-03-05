@@ -6,26 +6,27 @@ Login
 
 {% block content %}
 
-<h1>  Login </h1>
+<h1> Retailer login Page </h1>
+
 <form action ="" method = "POST" ,novalidate>
     {{ form.hidden_tag() }}
     <p>
-        {{ form.Email.label(class="form-label") }}<br>
-        {{ form.Email(size=32, class="form-control",placeholder="name@example.com") }}
+        {{ form.Email.label }}<br>
+        {{ form.Email(size=32) }}
         {% for error in form.Email.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
     </p>
     <p>
-        {{ form.Password.label(class="form-label")}}<br>
-        {{ form.Password(size=32,class="form-control") }}
+        {{ form.Password.label }}<br>
+        {{ form.Password(size=32) }}
         {% for error in form.Password.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
     </p>
 
     <br />
-    <p>{{ form.submit(class="btn btn-primary") }}</p>
+    <p>{{ form.submit() }}</p>
 
 
 

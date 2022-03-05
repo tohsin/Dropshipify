@@ -3,8 +3,7 @@ from time import timezone
 from . import db
 from datetime import datetime
 from flask_login import UserMixin
-from sqlalchemy.sql import func
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import  check_password_hash
 '''
 many to many tables declared here
 '''
@@ -31,48 +30,47 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer,primary_key = True)
     email = db.Column(db.String(150), unique = True)
     password = db.Column(db.String(150) )
-    frist_name = db.Column(db.String(150))
+    first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
+    is_retailer = db.Column(db.Boolean(),default= False)
     mailing_address = db.Column(db.String(150))
+    city = db.Column(db.String(150) )
+    state = db.Column(db.String(150) )
+    zip_ = db.Column(db.String(150) )
     mailing_phone_number = db.Column(db.String(150))
     favoutite_stores = db.relationship("Stores",secondary = favourite_shops)
     favoutite_niche = db.relationship("Niche",secondary = favourite_niche)
+    stores_id = db.Column(db.Integer, db.ForeignKey('stores.id'),)
     def __repr__(self):
         return '<User {}>'.format(self.email)
-    def set_password(self, password):
-            self.password_hash = generate_password_hash(password, method='sha256')
+    # def set_password(self, password):
+    #     self.password_hash = generate_password_hash(password, method='sha256')
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
     
-class Reatiler(db.Model, UserMixin):
-    id = db.Column(db.Integer,primary_key = True)
-    frist_name = db.Column(db.String(150))
-    last_name = db.Column(db.String(150))
-    email = db.Column(db.String(150), unique = True)
-    stores_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
-    password = db.Column(db.String(150) )
-    def set_password(self, password):
-            self.password_hash = generate_password_hash(password, method='sha256')
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
     
 class Stores(db.Model):
     id = db.Column(db.Integer,primary_key = True)
-    store_name = db.Column(db.String(150))
+    store_name = db.Column(db.String(150),unique = True)
+    store_icon = db.Column(db.String(150))
+    store_description = db.Column(db.String(150))
     niches = db.relationship("Niche", secondary = store_niches)
     products = db.relationship("Product")
+    
 class Product(db.Model):
     id = db.Column(db.Integer,primary_key = True)
-    date_added = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
-    date_editted = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
     price = db.Column(db.Numeric)
     product_name  = db.Column(db.String(150))
     ansii = db.Column(db.String(150))
     product_link =  db.Column(db.String(500))
     number_available =  db.Column(db.Numeric)
+    number_shipped =  db.Column(db.Numeric)
+    number_clicks =  db.Column(db.Numeric)
     description = db.Column(db.String(300))
+    product_image  = db.Column(db.String(150))
+    date_added = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
+    date_editted = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
     store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
     niche = db.relationship("Niche", secondary= product_niches)
     

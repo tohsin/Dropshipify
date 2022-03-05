@@ -4,3 +4,5 @@ flask-sqlalchemy
 flask-wtf
 flask-migrate
 email-validator
+flask-bootstrap
+

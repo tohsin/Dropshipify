@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -39,4 +40,24 @@ def create_app():
 def create_database(app):
     if not path.exists('website/' + DB_NAME):
         db.create_all(app=app)
+        populate_database()
         print('Created Database!')
+        
+def populate_database():
+    print(" happy")
+    # username = 'user_name'
+    # last_name = 'big bum'
+    # email_add = '@gmail.com'
+    # password = '123456789'
+    # people = 20
+    # for i in range(people):
+    #     name = username + str(i)
+    #     email =  name+ email_add
+    #     mailing_address = name + " @ lagos state govt" 
+        
+    #     new_user = User(email=email, password=generate_password_hash(password, method='sha256'),\
+    #                     frist_name = name , last_name =  last_name+ str(i),\
+    #     mailing_address = mailing_address , mailing_phone_number= password + str(i))
+            
+    #     db.session.add( new_user)
+    #     db.session.commit()

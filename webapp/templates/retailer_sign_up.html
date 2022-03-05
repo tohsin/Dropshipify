@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %} 
+Login 
+{% endblock %}
+
+{% block content %}
+
+<h1> Sign Up as a Retailer  </h1>
+
+<form action ="" method = "POST" ,novalidate>
+    <h3 align ="center">Sign up</h3>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.Email.label }}<br>
+        {{ form.Email(size=32) }}
+        {% for error in form.Email.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+    </p>
+    <p>
+        {{ form.first_name.label }}<br>
+        {{ form.first_name(size=32) }}
+        {% for error in form.first_name.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.last_name.label }}<br>
+        {{ form.last_name(size=32) }}
+        {% for error in form.last_name.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    
+    <p>
+        {{ form.store_name.label }}<br>
+        {{ form.store_name(size=32) }}
+        {% for error in form.store_name.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    
+    <p>
+        {{ form.password1.label }}<br>
+        {{ form.password1(size=32) }}
+        {% for error in form.password1.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.password2.label }}<br>
+        {{ form.password2(size=32) }}
+        {% for error in form.password2.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+
+    <br />
+    <p>{{ form.submit() }}</p>
+
+
+</form>
+
+{% endblock %}
