@@ -30,6 +30,6 @@ class SignUpFormUser(FlaskForm):
 class SignUpFormRetailer(FlaskForm):
     store_name = StringField('Name of Store', validators=[DataRequired(),Length(min=4)])
     store_icon = FileField(validators=[FileRequired()])
-    store_description = TextAreaField("Store Description" ,validators=[DataRequired(),Length(min=20))
+    store_description = TextAreaField("Store Description" ,validators=[DataRequired(),Length(min=20)])
     submit = SubmitField('Become a Retailer')
     

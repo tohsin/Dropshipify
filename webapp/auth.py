@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template , request,flash,redirect,url_for
 from webapp import views
 from . import db
+from webapp import webapp
 from webapp.models import User,Stores
 from webapp.forms import SignUpFormUser,LoginFormUser
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -56,7 +57,7 @@ def signup():
             
     return render_template("sign_up.html",user = current_user,form = form) 
 
-@auth.errorhandler(404)
+@webapp.app_errorhandler(404)
 def page_not_found(e):
     print("work")
     return render_template("404.html"), 404
