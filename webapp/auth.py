@@ -62,9 +62,11 @@ def signup():
 
 @auth.app_errorhandler(404)
 def page_not_found(e):
-    print("work")
     return render_template("404.html"), 404
 
+@auth.app_errorhandler(500)
+def page_not_found(e):
+    return render_template("500.html"), 500
 
 @auth.route('/update/<int:id>',methods = ["GET", "POST"])
 def update(id):
@@ -98,8 +100,6 @@ def update(id):
                                    form = form,
                                    name_to_update=name_to_update) 
         
-        
-        
 @auth.route('/sign-up-retailer/<int:id>', methods = ["GET", "POST"])
 @login_required
 def sign_up_retailer(id):
@@ -113,10 +113,8 @@ def sign_up_retailer(id):
             pic_filename = secure_filename(f.filename)
             #set pic name
             pic_name = str(uuid.uuid1()) + "_" + pic_filename
-            
             new_store = Stores(store_name = form.store_name.data, store_icon = pic_name,\
                store_description = form.store_description.data,user_id = user_to_get_store.id )
-            
             db.session.add(new_store)
             user_to_get_store.is_retailer = True
             try:
@@ -133,9 +131,9 @@ def sign_up_retailer(id):
     else:
         if current_user.is_retailer:
             store = Stores.query.filter_by(user_id = id)
-            return render_template("sign_up_retailer.html", user = current_user, form = form, store = store )
+            return render_template("sign_up_retailer.html", user = current_user, form = form )
         else:
-            return render_template("sign_up_retailer.html",user = current_user, form = form)
+            return render_template("sign_up_retailer.html", user = current_user, form = form)
 
 
 

@@ -38,6 +38,7 @@ class User(db.Model, UserMixin):
     state = db.Column(db.String(150) )
     zip_ = db.Column(db.String(150) )
     mailing_phone_number = db.Column(db.String(150))
+    stores = db.relationship("Stores", uselist=False)
     favoutite_stores = db.relationship("Stores",secondary = favourite_shops)
     favoutite_niche = db.relationship("Niche",secondary = favourite_niche)
     def __repr__(self):

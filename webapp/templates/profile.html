@@ -34,8 +34,9 @@ Profile
        {{ user.mailing_phone_number }}<br/>
        
        {% if user.is_retailer %}
-           <p> You are a Retailer </p>
-           {{store.store_name}}
+       <strong> Store Name: </strong>
+            {{user.stores.store_name}}<br/>
+          
        {% endif %}
 
       </p>
