@@ -1,5 +1,5 @@
 from re import T
-from webapp import create_app
+from app import create_app
 
 app = create_app()
 
