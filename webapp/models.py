@@ -40,7 +40,6 @@ class User(db.Model, UserMixin):
     mailing_phone_number = db.Column(db.String(150))
     favoutite_stores = db.relationship("Stores",secondary = favourite_shops)
     favoutite_niche = db.relationship("Niche",secondary = favourite_niche)
-    stores_id = db.Column(db.Integer, db.ForeignKey('stores.id'),)
     def __repr__(self):
         return '<User {}>'.format(self.email)
     # def set_password(self, password):
@@ -53,10 +52,11 @@ class User(db.Model, UserMixin):
 class Stores(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     store_name = db.Column(db.String(150),unique = True)
-    store_icon = db.Column(db.String(150))
+    store_icon = db.Column(db.String(150),nullable=True)
     store_description = db.Column(db.String(150))
     niches = db.relationship("Niche", secondary = store_niches)
     products = db.relationship("Product")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
 class Product(db.Model):
     id = db.Column(db.Integer,primary_key = True)

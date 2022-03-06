@@ -1,9 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField,TextAreaField
-from flask_wtf.file import FileField, FileRequired
+from flask_wtf.file import FileField, FileRequired,FileAllowed
 from wtforms.validators import DataRequired,Length,ValidationError, EqualTo
 from webapp.models import User
 from wtforms.widgets import TextArea
+
 class LoginFormUser(FlaskForm):
     Email = StringField('Email', validators=[DataRequired()])
     Password = PasswordField('Password', validators=[DataRequired()])
@@ -27,9 +28,12 @@ class SignUpFormUser(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address.')
+
+
 class SignUpFormRetailer(FlaskForm):
     store_name = StringField('Name of Store', validators=[DataRequired(),Length(min=4)])
-    store_icon = FileField(validators=[FileRequired()])
+    upload = FileField('Upload Company Icon', validators=[
+        FileAllowed(['jpg', 'png','jpeg'], 'Images only!')])
     store_description = TextAreaField("Store Description" ,validators=[DataRequired(),Length(min=20)])
     submit = SubmitField('Become a Retailer')
     

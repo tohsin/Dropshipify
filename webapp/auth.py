@@ -1,13 +1,16 @@
 from flask import Blueprint, render_template , request,flash,redirect,url_for
 from webapp import views
 from . import db
-from webapp import webapp
+import os
+import webapp
 from webapp.models import User,Stores
-from webapp.forms import SignUpFormUser,LoginFormUser
+from webapp.forms import SignUpFormUser,LoginFormUser, SignUpFormRetailer
 from werkzeug.security import generate_password_hash, check_password_hash
-auth = Blueprint('auth', __name__)
+from werkzeug.utils import secure_filename
+import uuid as uuid
 from flask_login import login_user, login_required, logout_user,current_user
 
+auth = Blueprint('auth', __name__)
 @auth.route('/login',methods = ["GET", "POST"])
 def login():
     form = LoginFormUser()
@@ -57,7 +60,7 @@ def signup():
             
     return render_template("sign_up.html",user = current_user,form = form) 
 
-@webapp.app_errorhandler(404)
+@auth.app_errorhandler(404)
 def page_not_found(e):
     print("work")
     return render_template("404.html"), 404
@@ -97,12 +100,42 @@ def update(id):
         
         
         
-          
+@auth.route('/sign-up-retailer/<int:id>', methods = ["GET", "POST"])
+@login_required
+def sign_up_retailer(id):
+    form = SignUpFormRetailer()
+    if not current_user.is_authenticated:
+            return redirect(url_for('auth.login'))
+    if form.validate_on_submit():
+            #add user to database
+            user_to_get_store = User.query.get_or_404(id)
+            f= form.upload.data
+            pic_filename = secure_filename(f.filename)
+            #set pic name
+            pic_name = str(uuid.uuid1()) + "_" + pic_filename
+            
+            new_store = Stores(store_name = form.store_name.data, store_icon = pic_name,\
+               store_description = form.store_description.data,user_id = user_to_get_store.id )
+            
+            db.session.add(new_store)
+            user_to_get_store.is_retailer = True
+            try:
+                f.save(os.path.join('webapp/static/images', pic_name))
+                db.session.commit()
+                flash ("Registered Retailer succesfully", category='success')
+                return redirect(url_for('views.profile'))
+            except Exception as e:
+                print(e)
+                flash ("Error Looks like something broke", category='error')
+                return render_template("sign_up_retailer.html",
+                                   user = current_user,
+                                   form = form) 
+    else:
+        if current_user.is_retailer:
+            store = Stores.query.filter_by(user_id = id)
+            return render_template("sign_up_retailer.html", user = current_user, form = form, store = store )
+        else:
+            return render_template("sign_up_retailer.html",user = current_user, form = form)
 
 
-#    <a class="nav-item nav-link" id="home" href="/">Home</a>  
-#           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-#           {% else %}
 
-#             <a class="nav-item nav-link" id="login" href="/login">Login</a>
-#             <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>

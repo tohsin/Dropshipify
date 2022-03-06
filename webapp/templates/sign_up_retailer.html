@@ -9,98 +9,39 @@ Login
 <h1 align ="center"> Sign Up Reatiler </h1>
 <br/>
 
-<form class="row g-3" action ="" method = "POST" ,novalidate>
+<form action ="" method = "POST"  enctype="multipart/form-data" >
     
 
     {{ form.hidden_tag() }}
-    <div class="col-md-6">
+    <div class="form-group">
        
-        {{ form.first_name.label(class="form-label") }}
+        {{ form.store_name.label(class="form-label") }}
       
-        {{ form.first_name(class="form-control" ) }}
-        {% for error in form.first_name.errors %}
+        {{ form.store_name(class="form-control" ) }}
+        {% for error in form.store_name.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
       
     </div>
     <br/>
-    <div class="col-md-6">
-        {{ form.last_name.label(class="form-label") }}<br>
-        {{ form.last_name(class="form-control") }}
-        {% for error in form.last_name.errors %}
+    <div  class="form-group">
+        {{ form.store_description.label(class="form-label") }}<br>
+        {{ form.store_description(class="form-control") }}
+        {% for error in form.store_description.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
     </div>
     <br/>
-    <div class="col-12">
-        {{ form.Email.label( class="form-label") }}<br>
-        {{ form.Email(size=32,class="form-control",placeholder="name@example.com") }}
-        {% for error in form.Email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
+    <div >
+        {{ form.upload.label(class="form-label")}}
+        {{ form.upload(class="form-control") }}
+        {% for error in form.upload.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
     </div>
-    <br/>
-    <div class="col-12">
-        {{  form.mailing_address.label( class="form-label") }}<br>
-        {{ form.mailing_address(size=32,class="form-control",placeholder="1234 Main St") }}
-        {% for error in form.mailing_address.errors  %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-    </div>
-    <br/>
 
-    <div class="col-12">
-        {{ form.mailing_phone_number.label( class="form-label") }}<br>
-        {{ form.mailing_phone_number(size=32,class="form-control",placeholder="+1(0)7543685") }}
-        {% for error in form.mailing_phone_number.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </div>
-    <div class="col-md-6">
-    
-        {{ form.city.label(class="form-label") }}<br>
-        {{ form.city(size=32, class="form-control" ) }}
-        
-        {% for error in form.city.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </div>
-    <div class="col-md-4">
-    
-        {{ form.state.label(class="form-label") }}<br>
-        {{ form.state(size=32, class="form-control" ) }}
-        
-        {% for error in form.state.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </div>
-    <div class="col-md-2">
-    
-        {{ form.zip_.label(class="form-label") }}<br>
-        {{ form.zip_(size=32, class="form-control" ) }}
-        
-        {% for error in form.zip_.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </div>
-    <div class="col-md-6">
-    
-        {{ form.password1.label(class="form-label") }}<br>
-        {{ form.password1(size=32, class="form-control" ) }}
-        
-        {% for error in form.password1.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </div>
-    <div class="col-md-6">
-        {{ form.password2.label(class="form-label") }}<br>
-        {{ form.password2(size=32, class="form-control") }}
-        {% for error in form.password2.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-    </div>
     <br/>
-    <div align = 'center'   class="col-md-12">
+    <div align = 'center'>
     {{ form.submit(class="btn btn-primary") }}
     </div>
 </form>
