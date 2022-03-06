@@ -17,7 +17,7 @@ Login
        
         {{ form.first_name.label(class="form-label") }}
       
-        {{ form.first_name(class="form-control") }}
+        {{ form.first_name(class="form-control",placeholder="John") }}
         {% for error in form.first_name.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
@@ -26,7 +26,7 @@ Login
     <br/>
     <div class="col-md-6">
         {{ form.last_name.label(class="form-label") }}<br>
-        {{ form.last_name(class="form-control") }}
+        {{ form.last_name(class="form-control", placeholder="Doe") }}
         {% for error in form.last_name.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
