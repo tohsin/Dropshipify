@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template , request,flash,redirect,url_for
-from app import views
+from webapp import views
 from . import db
 import os
-import app
-from app.models import User,Stores
-from app.forms import SignUpFormUser,LoginFormUser, SignUpFormRetailer
+import webapp
+from webapp.models import User,Stores
+from webapp.forms import SignUpFormUser,LoginFormUser, SignUpFormRetailer
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import uuid as uuid

@@ -38,7 +38,7 @@ class User(db.Model, UserMixin):
     state = db.Column(db.String(150) )
     zip_ = db.Column(db.String(150) )
     mailing_phone_number = db.Column(db.String(150))
-    stores = db.relationship("Stores", uselist=False)
+    store = db.relationship("Stores", uselist=False)
     favoutite_stores = db.relationship("Stores",secondary = favourite_shops)
     favoutite_niche = db.relationship("Niche",secondary = favourite_niche)
     def __repr__(self):
@@ -63,11 +63,11 @@ class Product(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     price = db.Column(db.Numeric)
     product_name  = db.Column(db.String(150))
-    ansii = db.Column(db.String(150))
-    product_link =  db.Column(db.String(500))
+    ansii = db.Column(db.String(150), nullable = True)
+    product_link =  db.Column(db.String(500), nullable = True)
     number_available =  db.Column(db.Numeric)
     number_shipped =  db.Column(db.Numeric)
-    number_clicks =  db.Column(db.Numeric)
+    number_clicks =  db.Column(db.Numeric, default = 0)
     description = db.Column(db.String(300))
     product_image  = db.Column(db.String(150))
     date_added = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
@@ -78,4 +78,8 @@ class Product(db.Model):
 class Niche(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     name = db.Column(db.String(150))
-
+class Sales(db.Model):
+    id = db.Column(db.Integer,primary_key = True)
+    date_sale = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    
