@@ -1,16 +1,15 @@
 from flask import Blueprint, render_template , request,flash,redirect,url_for
-from webapp import views
-from . import db
+from . import auth
+from .. import db
 import os
-import webapp
-from webapp.models import User,Stores
-from webapp.forms import SignUpFormUser,LoginFormUser, SignUpFormRetailer
+from app.models import User,Stores
+from .forms import SignUpFormUser,LoginFormUser, SignUpFormRetailer
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import uuid as uuid
 from flask_login import login_user, login_required, logout_user,current_user
 
-auth = Blueprint('auth', __name__)
+# auth = Blueprint('auth', __name__)
 @auth.route('/login',methods = ["GET", "POST"])
 def login():
     form = LoginFormUser()
@@ -60,13 +59,7 @@ def signup():
             
     return render_template("sign_up.html",user = current_user,form = form) 
 
-@auth.app_errorhandler(404)
-def page_not_found(e):
-    return render_template("404.html"), 404
 
-@auth.app_errorhandler(500)
-def page_not_found(e):
-    return render_template("500.html"), 500
 
 @auth.route('/update/<int:id>',methods = ["GET", "POST"])
 def update(id):

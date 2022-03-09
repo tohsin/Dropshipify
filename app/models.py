@@ -4,6 +4,7 @@ from . import db
 from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import  check_password_hash
+from . import login_manager
 '''
 many to many tables declared here
 '''
@@ -25,6 +26,9 @@ product_niches = db.Table('product_niches',
     db.Column('niche_id', db.Integer, db.ForeignKey('niche.id'))
 )
 '''end of many tp many tables'''
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer,primary_key = True)

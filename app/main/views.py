@@ -1,31 +1,32 @@
 from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for
 from flask_login import  login_required,current_user
-from webapp.forms import CreateProductFromAmazon, CreateProduct
+from .forms import CreateProductFromAmazon, CreateProduct
 from werkzeug.utils import secure_filename
-from webapp.models import User,Product
+from app.models import User,Product
 import uuid as uuid
-from . import db
+from .. import db
+from . import main
 import os
 import json
 
-views = Blueprint('views', __name__)
+# views = Blueprint('views', __name__)
 
-@views.route('/', methods = ["GET", "POST"])
+@main.route('/', methods = ["GET", "POST"])
 @login_required
 def home():
     return render_template("home.html",user =current_user)
 
-@views.route('/retailer', methods = ["GET", "POST"])
+@main.route('/retailer', methods = ["GET", "POST"])
 @login_required
 def home_retailer():
     return render_template("add_product.html",user =current_user)
 
-@views.route('/profile', methods = ["GET", "POST"])
+@main.route('/profile', methods = ["GET", "POST"])
 @login_required
 def profile():
     return render_template("profile.html", user = current_user)
 
-@views.route('/add-product/<int:id>', methods = ["GET", "POST"])
+@main.route('/add-product/<int:id>', methods = ["GET", "POST"])
 @login_required
 def add_product(id):
     linkform = CreateProductFromAmazon()
@@ -44,7 +45,7 @@ def add_product(id):
                                   ansii = manualform.ansii.data, 
                                   product_link = manualform.product_link.data,
                                   number_available = manualform.number_available.data,
-                                  description = manualform.description.data,
+                                  description = manualform.product_description.data,
                                   number_shipped = manualform.number_available.data,
                                   product_image = pic_name,
                                   store_id = user_to_get_store.store.id
@@ -64,7 +65,7 @@ def add_product(id):
                            linkform = linkform,
                            manualform = manualform)
 
-@views.route('/store', methods = ["GET", "POST"])
+@main.route('/store', methods = ["GET", "POST"])
 @login_required
 def store_home():
     linkform = CreateProductFromAmazon()
