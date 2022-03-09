@@ -14,7 +14,7 @@ from flask_login import login_user, login_required, logout_user,current_user
 def login():
     form = LoginFormUser()
     if current_user.is_authenticated:
-            return redirect(url_for('views.home'))
+            return redirect(url_for('main.home'))
     if form.validate_on_submit():
             #add user to database
             user = User.query.filter_by(email=form.Email.data).first()
@@ -22,7 +22,7 @@ def login():
                 if check_password_hash(user.password, form.Password.data):
                     flash('Logged in successfully!', category='success')
                     login_user(user, remember=True)
-                    return redirect(url_for('views.home'))
+                    return redirect(url_for('main.home'))
                 else:
                     flash('Incorrect password, try again.', category='error')
             else:
@@ -42,7 +42,7 @@ def signup():
     #data_p ={'username':"miguel"}
     form = SignUpFormUser()
     if current_user.is_authenticated:
-        return redirect(url_for('views.home'))
+        return redirect(url_for('main.home'))
     if form.validate_on_submit():
             #add user to database
             email = User.query.filter_by(email=form.email.data).first()
@@ -102,7 +102,7 @@ def sign_up_retailer(id):
     if form.validate_on_submit():
             #add user to database
             user_to_get_store = User.query.get_or_404(id)
-            f= form.upload.data
+            f = form.upload.data
             pic_filename = secure_filename(f.filename)
             #set pic name
             pic_name = str(uuid.uuid1()) + "_" + pic_filename
@@ -114,7 +114,7 @@ def sign_up_retailer(id):
                 f.save(os.path.join('webapp/static/images', pic_name))
                 db.session.commit()
                 flash ("Registered Retailer succesfully", category='success')
-                return redirect(url_for('views.profile'))
+                return redirect(url_for('main.profile'))
             except Exception as e:
                 print(e)
                 flash ("Error Looks like something broke", category='error')
