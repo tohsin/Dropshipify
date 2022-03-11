@@ -24,6 +24,11 @@ def create_app(config_name):
     # UPLOAD_FOLDER = 'static/images/'
     # # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    # if app.config['SSL_REDIRECT']:
+    #     from flask_sslify import SSLify
+    #     sslify = SSLify(app)
+
+
     db.init_app(app)
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
