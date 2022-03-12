@@ -15,6 +15,7 @@ migrate = Migrate(db)
 
 def create_app():
     app = Flask(__name__)
+    app.static_folder = 'static'
     app.config['SECRET_KEY'] = 'dev'
     UPLOAD_FOLDER = 'static/images/'
     # app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
