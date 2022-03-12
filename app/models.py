@@ -1,3 +1,4 @@
+from email.policy import default
 from itertools import product
 from time import timezone
 from . import db
@@ -82,8 +83,25 @@ class Product(db.Model):
 class Niche(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     name = db.Column(db.String(150))
+    
 class Sales(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     date_sale = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
-    
+
+class CartItem(db.Model):
+    id = db.Column(db.Integer,primary_key = True)
+    date_created = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    done = db.Column(db.Boolean, default = False)
+class State:
+    default = 0
+    shipping = 1
+    shipped = 2
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    cart = db.relationship("CartItem")
+    status =  db.Column(db.Integer, default = State.default)
+    date_created = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
+    date_shipped = db.Column(db.DateTime(timezone = True) ,nullable = True)

@@ -10,6 +10,7 @@ from wtforms.widgets import TextArea
 class CreateProductFromAmazon(FlaskForm):
     amazon_link = StringField('Amazon Link', validators=[DataRequired(),Length(min=4)])
     submit = SubmitField('Automatically Add By Amazon Link')
+    
 class CreateProduct(FlaskForm):
     product_name = StringField('Product Name', validators=[DataRequired(),Length(min=2)])
     price = IntegerField('Price', validators=[DataRequired()])
@@ -20,4 +21,3 @@ class CreateProduct(FlaskForm):
     upload = FileField('Product Image', validators=[
         FileAllowed(['jpg', 'png','jpeg'], 'Images only!')])
     submit = SubmitField('Become a Retailer')
-    

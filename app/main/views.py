@@ -1,15 +1,17 @@
+from itertools import product
 from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for
 from flask_login import  login_required,current_user
 from .forms import CreateProductFromAmazon, CreateProduct
 from werkzeug.utils import secure_filename
-from app.models import User,Product
+from app.models import User, Product, Stores, CartItem
+from flask import abort
 import uuid as uuid
 from .. import db
 from . import main
 import os
 import json
 
-# views = Blueprint('views', __name__)
+
 
 @main.route('/', methods = ["GET", "POST"])
 @login_required
@@ -65,10 +67,69 @@ def add_product(id):
                            linkform = linkform,
                            manualform = manualform)
 
-@main.route('/store', methods = ["GET", "POST"])
+
+
+@main.route('/store-home/<int:store_id>', methods = ["GET"])
 @login_required
-def store_home():
-    linkform = CreateProductFromAmazon()
+def store_home(store_id):
+    store = Stores.query.get_or_404(store_id)
+    if not current_user.is_authenticated:
+            return redirect(url_for('auth.login'))
+    if store is None:
+        abort(404)
+    products = store.products.order_by(products.date_added.desc()).all()
     return render_template("store_home.html", 
                            user = current_user,
-                           linkform = linkform)
+                           products = products)
+@main.route('/product-detail/<int:product_id>', methods = ["GET"])
+@login_required
+def product_detail(product_id):
+    if not current_user.is_authenticated:
+            return redirect(url_for('auth.login'))
+    product = Product.query.get_or_404(product_id)
+    if product is None:
+        abort(404)
+    return render_template("product_detail.html", 
+                           user = current_user,
+                           product = product)
+    
+@main.route('/view-cart/<int:user_id>', methods = ["GET"])
+@login_required
+def view_cart(user_id):
+    if not current_user.is_authenticated:
+            return redirect(url_for('auth.login'))
+    user = User.query.get_or_404(user_id)
+    if user is None:
+        abort(404)
+    items = CartItem.query.filter_by(user_id = user_id, done = False)
+    return render_template("view_cart.html", 
+                           user = current_user,
+                           items = items)
+# @main.route('/move-to-cart', methods = [ "POST"])
+# @login_required
+# def moveToCart():
+#     data = json.loads(request.data)
+#     items = data['items']
+#     productid = data['productid']
+#     cartItem = CartItem(product_id = productid, user_id= userid)
+#     db.session.add(cartItem)
+#     db.session.commit()
+#     flash ("Item succesfully addded to Cart", category='success')
+#     return jsonify({})
+
+
+@main.route('/add-cart', methods = [ "POST"])
+@login_required
+def addToCart():
+    data = json.loads(request.data)
+    userid = data['userid']
+    productid = data['productid']
+    cartItem = CartItem(product_id = productid, user_id= userid)
+    db.session.add(cartItem)
+    db.session.commit()
+    flash ("Item succesfully addded to Cart", category='success')
+    return jsonify({})
+
+
+# <button type='button' class='close' onclick='addToCart({{user.id, product.id}})'>
+# </button>
