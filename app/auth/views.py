@@ -1,20 +1,21 @@
 from flask import Blueprint, render_template , request,flash,redirect,url_for
-from . import auth
-from .. import db
+from webapp import views
+from . import db
 import os
-from app.models import User,Stores
-from .forms import SignUpFormUser,LoginFormUser, SignUpFormRetailer
+import webapp
+from webapp.models import User, Store
+from webapp.forms import SignUpFormUser,LoginFormUser, SignUpFormRetailer
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import uuid as uuid
 from flask_login import login_user, login_required, logout_user,current_user
 
-# auth = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__)
 @auth.route('/login',methods = ["GET", "POST"])
 def login():
     form = LoginFormUser()
     if current_user.is_authenticated:
-            return redirect(url_for('main.home'))
+            return redirect(url_for('views.home'))
     if form.validate_on_submit():
             #add user to database
             user = User.query.filter_by(email=form.Email.data).first()
@@ -22,7 +23,7 @@ def login():
                 if check_password_hash(user.password, form.Password.data):
                     flash('Logged in successfully!', category='success')
                     login_user(user, remember=True)
-                    return redirect(url_for('main.home'))
+                    return redirect(url_for('views.home'))
                 else:
                     flash('Incorrect password, try again.', category='error')
             else:
@@ -42,7 +43,7 @@ def signup():
     #data_p ={'username':"miguel"}
     form = SignUpFormUser()
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('views.home'))
     if form.validate_on_submit():
             #add user to database
             email = User.query.filter_by(email=form.email.data).first()
@@ -59,7 +60,13 @@ def signup():
             
     return render_template("sign_up.html",user = current_user,form = form) 
 
+@auth.app_errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
 
+@auth.app_errorhandler(500)
+def page_not_found(e):
+    return render_template("500.html"), 500
 
 @auth.route('/update/<int:id>',methods = ["GET", "POST"])
 def update(id):
@@ -102,11 +109,11 @@ def sign_up_retailer(id):
     if form.validate_on_submit():
             #add user to database
             user_to_get_store = User.query.get_or_404(id)
-            f = form.upload.data
+            f= form.upload.data
             pic_filename = secure_filename(f.filename)
             #set pic name
             pic_name = str(uuid.uuid1()) + "_" + pic_filename
-            new_store = Stores(store_name = form.store_name.data, store_icon = pic_name,\
+            new_store = Store(store_name = form.store_name.data, store_icon = pic_name,\
                store_description = form.store_description.data,user_id = user_to_get_store.id )
             db.session.add(new_store)
             user_to_get_store.is_retailer = True
@@ -114,7 +121,7 @@ def sign_up_retailer(id):
                 f.save(os.path.join('webapp/static/images', pic_name))
                 db.session.commit()
                 flash ("Registered Retailer succesfully", category='success')
-                return redirect(url_for('main.profile'))
+                return redirect(url_for('views.profile'))
             except Exception as e:
                 print(e)
                 flash ("Error Looks like something broke", category='error')
@@ -123,7 +130,7 @@ def sign_up_retailer(id):
                                    form = form) 
     else:
         if current_user.is_retailer:
-            store = Stores.query.filter_by(user_id = id)
+            store = Store.query.filter_by(user_id = id)
             return render_template("sign_up_retailer.html", user = current_user, form = form )
         else:
             return render_template("sign_up_retailer.html", user = current_user, form = form)

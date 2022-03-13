@@ -11,7 +11,7 @@ many to many tables declared here
 '''
 favourite_shops = db.Table('favourite_shops',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('favourite_shop_id', db.Integer, db.ForeignKey('stores.id'))
+    db.Column('favourite_shop_id', db.Integer, db.ForeignKey('store.id'))
 )
 favourite_niche = db.Table('favourite_niche',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
@@ -19,12 +19,17 @@ favourite_niche = db.Table('favourite_niche',
 )
 
 store_niches = db.Table('store_niches',
-    db.Column('store_id', db.Integer, db.ForeignKey('stores.id')),
+    db.Column('store_id', db.Integer, db.ForeignKey('store.id')),
     db.Column('niche_id', db.Integer, db.ForeignKey('niche.id'))
 )
 product_niches = db.Table('product_niches',
     db.Column('product_id', db.Integer, db.ForeignKey('product.id')),
     db.Column('niche_id', db.Integer, db.ForeignKey('niche.id'))
+)
+
+cart_order = db.Table('cart_order',
+    db.Column('cart_id', db.Integer, db.ForeignKey('cart.id')),
+    db.Column('order_id', db.Integer, db.ForeignKey('order.id'))
 )
 '''end of many tp many tables'''
 @login_manager.user_loader
@@ -43,8 +48,8 @@ class User(db.Model, UserMixin):
     state = db.Column(db.String(150) )
     zip_ = db.Column(db.String(150) )
     mailing_phone_number = db.Column(db.String(150))
-    store = db.relationship("Stores", uselist=False)
-    favoutite_stores = db.relationship("Stores",secondary = favourite_shops)
+    store = db.relationship("Store", uselist=False)
+    favoutite_stores = db.relationship("Store",secondary = favourite_shops)
     favoutite_niche = db.relationship("Niche",secondary = favourite_niche)
     def __repr__(self):
         return '<User {}>'.format(self.email)
@@ -55,13 +60,13 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
     
     
-class Stores(db.Model):
+class Store(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     store_name = db.Column(db.String(150),unique = True)
     store_icon = db.Column(db.String(150),nullable=True)
     store_description = db.Column(db.String(150))
     niches = db.relationship("Niche", secondary = store_niches)
-    products = db.relationship("Product")
+    products = db.relationship("Product",backref='store', lazy='dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     
 class Product(db.Model):
@@ -77,7 +82,7 @@ class Product(db.Model):
     product_image  = db.Column(db.String(150))
     date_added = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
     date_editted = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
-    store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
+    store_id = db.Column(db.Integer, db.ForeignKey('store.id'))
     niche = db.relationship("Niche", secondary= product_niches)
     
 class Niche(db.Model):
@@ -88,8 +93,13 @@ class Sales(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     date_sale = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+<<<<<<< HEAD:app/models.py
 
 class CartItem(db.Model):
+=======
+    
+class Cart(db.Model):
+>>>>>>> error-routing:webapp/models.py
     id = db.Column(db.Integer,primary_key = True)
     date_created = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
@@ -101,7 +111,14 @@ class State:
     shipped = 2
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key = True)
+<<<<<<< HEAD:app/models.py
     cart = db.relationship("CartItem")
     status =  db.Column(db.Integer, default = State.default)
     date_created = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
     date_shipped = db.Column(db.DateTime(timezone = True) ,nullable = True)
+=======
+    cart = db.relationship("Cart", secondary = cart_order)
+    status =  db.Column(db.Integer, default = State.default)
+    date_created = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
+    date_shipped = db.Column(db.DateTime(timezone = True) ,nullable = True)
+>>>>>>> error-routing:webapp/models.py
