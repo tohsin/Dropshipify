@@ -37,9 +37,11 @@ class SignUpFormRetailer(FlaskForm):
         FileAllowed(['jpg', 'png','jpeg'], 'Images only!')])
     store_description = TextAreaField("Store Description" ,validators=[DataRequired(),Length(min=20)])
     submit = SubmitField('Become a Retailer')
+    
 class CreateProductFromAmazon(FlaskForm):
     amazon_link = StringField('Amazon Link', validators=[DataRequired(),Length(min=4)])
     submit = SubmitField('Automatically Add By Amazon Link')
+    
 class CreateProduct(FlaskForm):
     product_name = StringField('Product Name', validators=[DataRequired(),Length(min=2)])
     price = IntegerField('Price', validators=[DataRequired()])
@@ -49,5 +51,5 @@ class CreateProduct(FlaskForm):
     product_description = TextAreaField("Product Description" ,validators=[DataRequired(),Length(min=20)])
     upload = FileField('Product Image', validators=[
         FileAllowed(['jpg', 'png','jpeg'], 'Images only!')])
-    submit = SubmitField('Become a Retailer')
+    submit = SubmitField('Add Product')
     

@@ -3,7 +3,7 @@ from webapp import views
 from . import db
 import os
 import webapp
-from webapp.models import User,Stores
+from webapp.models import User, Store
 from webapp.forms import SignUpFormUser,LoginFormUser, SignUpFormRetailer
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -113,7 +113,7 @@ def sign_up_retailer(id):
             pic_filename = secure_filename(f.filename)
             #set pic name
             pic_name = str(uuid.uuid1()) + "_" + pic_filename
-            new_store = Stores(store_name = form.store_name.data, store_icon = pic_name,\
+            new_store = Store(store_name = form.store_name.data, store_icon = pic_name,\
                store_description = form.store_description.data,user_id = user_to_get_store.id )
             db.session.add(new_store)
             user_to_get_store.is_retailer = True
@@ -130,7 +130,7 @@ def sign_up_retailer(id):
                                    form = form) 
     else:
         if current_user.is_retailer:
-            store = Stores.query.filter_by(user_id = id)
+            store = Store.query.filter_by(user_id = id)
             return render_template("sign_up_retailer.html", user = current_user, form = form )
         else:
             return render_template("sign_up_retailer.html", user = current_user, form = form)

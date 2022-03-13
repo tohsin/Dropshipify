@@ -36,13 +36,26 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
     create_database(app)
+    
+    # @app.cli.add_command('initdb')
+    # def reset_db():
+    #     db.drop_all()
+    #     db.create_all()
+    #     print('initialised database')
+    # @app.cli.add_command('bootstrap')
+    # def bootstrap_data():
+    #     db.drop_all()
+    #     db.create_all()
+    #     db.session.add(
+    #         User(email='tosin1@gmail.com',)
+    #     )
+        
     return app
 
 
 def create_database(app):
     if not path.exists('website/' + DB_NAME):
         db.create_all(app=app)
-        populate_database()
         print('Created Database!')
         
 def populate_database():
