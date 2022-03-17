@@ -1,4 +1,4 @@
-{% extends "retailer_base.html" %}
+{% extends "retailer_base.html" %} 
 {% block content%}
        
         
@@ -35,29 +35,49 @@
                            
                             </div>
                         </div>
+                    </div>
+                      
                         <div class="row">
                             {% for i in [1,2,3,4] %}
                             <div class="col-md-3">
                                 <div class="product">
                                     <div class="card">
-                                        <div class="product-img"><img src="/static/images/dior.png"  alt="" /></div>
-                                        
-                                    </div>
-                                    <div class="product_details">
-                                        <h6>Amelia Cabello Bag</h6>
-                                        <h6>£23.45</h6>
-                                        <div class="col-md-12">
-                                            <a target="_blank" href="" class="btn xs-no-margin-right" style="background-color: #212121; color: white; width: 236px !important;">Add to Cart</a>
-                
-                                        </div> 
+                                        <div class="top-bar">
+                                            <span class="float-right lnr lnr-heart"></span>
+                                        </div>
+                                        <div class="card-content">
+                                           
+                                            <div class="product-img"><img src="/static/images/dior.png" alt="" /></div>
+                                        </div>
+                                        <div class="card-description">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="title">
+                                                        <h6>Amelia Bag</h6>
+                                                        <p>{{"£"}}{{'%0.2f'| format(32.4|float)}}</p>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="cart">
+                                                        <span class="lnr lnr-cart"> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <span>hand bag</span>
+                                            <span>dior</span>
+                                            <span>blue bag</span>
+                                        </div>
                                     </div>
                                 </div>
-                               
                             </div>
+                                    
                             {% endfor %}
                          
                         </div>
-                    </div>
+                    <!-- </div> -->
                 </div>
             </section>
             <section id="Best-selling">
@@ -72,30 +92,47 @@
                             </div>
                         </div>
                         <div class="row">
-                          
-                           
-
                             {% for prod in products %}
                             <div class="col-md-3">
                                 <div class="product">
                                     <div class="card">
-                                        <div class="product-img"><img src="{{ url_for('static', filename='products/' + prod.product_image)}}" width="300" height = '400' alt="" /></div>
-                                        
-                                    </div>
-                                    <div class="product_details">
-                                        <h6>{{prod.product_name}}</h6>
-                                        <h6>{{"£"}}{{'%0.2f'| format(prod.price|float)}}</h6>
-                                        <div class="col-md-12">
-                                            <a target="_blank" href="" class="btn xs-no-margin-right" style="background-color: #212121; color: white; width: 236px !important;">Add to Cart</a>
-                
-                                        </div> 
+                                        <div class="top-bar">
+                                            <span class="float-right lnr lnr-heart"></span>
+                                        </div>
+                                        <div class="card-content">
+                                           
+                                            <div class="product-img"><img src="{{ url_for('static', filename='products/' + prod.product_image)}}" alt="" /></div>
+                                        </div>
+                                        <div class="card-description">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="title">
+                                                        <h6>{{prod.product_name}}</h6>
+                                                        <p>{{"£"}}{{'%0.2f'| format(32.4|float)}}</p>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="cart">
+                                                        <span class="lnr lnr-cart"> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <span>hand bag</span>
+                                            <span>dior</span>
+                                            <span>blue bag</span>
+                                        </div>
                                     </div>
                                 </div>
-                               
                             </div>
+                      
+                                  
                             {% endfor %}
                          
                         </div>
+                       
                     </div>
                 </div>
             </section>
@@ -171,4 +208,3 @@
         </body>
         
         {%endblock%}
-  

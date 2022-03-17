@@ -1,0 +1,179 @@
+{% extends "retailer_base.html" %} 
+{% block content%}
+ 
+    
+<div id="app">
+
+    <!-- Header -->
+    <header class="container">
+      <h1>Shopping Cart</h1>
+      <ul class="breadcrumb">
+        <li>Home</li>
+        <li>Shopping Cart</li>
+      </ul>
+      <span class="count">2 items in the bag</span>
+    </header>
+    <!-- End Header -->
+  
+    <!-- Product List -->
+    <section class="container cart-container" style="align-items: center !important; width: 50% !important;">
+      <div class=""> 
+        <ul class="products">
+        <li class="row">
+          <div class="col left">
+            <div class="thumbnail">
+              <a href="#">
+                <div class="product-img"><img src="/static/images/dior.png" alt="" style="width: 100px;"/></div>
+              </a>
+            </div>
+            <div class="detail">
+              <div class="cartem-name"><a id="cartem-title" href="#">Amelia Bag</a></div>
+              <div class="cartem-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis illo soluta distinctio reiciendis ratione voluptas ipsa iste beatae cupiditate adipisci, natus ea at doloribus voluptatem earum ducimus modi sed illum?</div>
+              <!-- <div class="cartem-price">£32.11</div> -->
+              <div class="row">
+                <div class="col-md-10">
+    
+                  <div class="cartem-price">£32.11</div>
+            
+                </div>
+                <div class="col-md-1">
+                  <div class="quantity">
+                    <!-- <input type="number" class="quantity" step="1" :value="product.quantity" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" /> -->
+                    <input type="number" class="quantity" step="1" />
+                  </div>
+                  
+                  <div class="remove">
+                    <!-- <svg @click="removeItem(index)" version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg> -->
+                    <svg version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg>
+                  </div>
+    
+    
+                </div>
+               
+              </div>
+            </div>
+          </div>
+
+          
+  
+         
+        </li>
+
+        <li class="row">
+          <div class="col left">
+            <div class="thumbnail">
+              <a href="#">
+                <div class="product-img"><img src="/static/images/dior.png" alt="" style="width: 100px;"/></div>
+              </a>
+            </div>
+            <div class="detail">
+              <div class="cartem-name"><a id="cartem-title" href="#">Amelia Bag</a></div>
+              <div class="cartem-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis illo soluta distinctio reiciendis ratione voluptas ipsa iste beatae cupiditate adipisci, natus ea at doloribus voluptatem earum ducimus modi sed illum?</div>
+              <!-- <div class="cartem-price">£32.11</div> -->
+              <div class="row">
+                <div class="col-md-10">
+    
+                  <div class="cartem-price">£32.11</div>
+            
+                </div>
+                <div class="col-md-1">
+                  <div class="quantity">
+                    <!-- <input type="number" class="quantity" step="1" :value="product.quantity" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" /> -->
+                    <input type="number" class="quantity" step="1" />
+                  </div>
+                  
+                  <div class="remove">
+                    <!-- <svg @click="removeItem(index)" version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg> -->
+                    <svg version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg>
+                  </div>
+    
+    
+                </div>
+               
+              </div>
+            </div>
+          </div>
+
+          
+  
+         
+        </li>
+
+        <li class="row">
+          <div class="col left">
+            <div class="thumbnail">
+              <a href="#">
+                <div class="product-img"><img src="/static/images/dior.png" alt="" style="width: 100px;"/></div>
+              </a>
+            </div>
+            <div class="detail">
+              <div class="cartem-name"><a id="cartem-title" href="#">Amelia Bag</a></div>
+              <div class="cartem-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Omnis illo soluta distinctio reiciendis ratione voluptas ipsa iste beatae cupiditate adipisci, natus ea at doloribus voluptatem earum ducimus modi sed illum?</div>
+              <!-- <div class="cartem-price">£32.11</div> -->
+              <div class="row">
+                <div class="col-md-10">
+    
+                  <div class="cartem-price">£32.11</div>
+            
+                </div>
+                <div class="col-md-1">
+                  <div class="quantity">
+                    <!-- <input type="number" class="quantity" step="1" :value="product.quantity" @input="updateQuantity(index, $event)" @blur="checkQuantity(index, $event)" /> -->
+                    <input type="number" class="quantity" step="1" />
+                  </div>
+                  
+                  <div class="remove">
+                    <!-- <svg @click="removeItem(index)" version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg> -->
+                    <svg version="1.1" class="close" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" enable-background="new 0 0 60 60" xml:space="preserve"><polygon points="38.936,23.561 36.814,21.439 30.562,27.691 24.311,21.439 22.189,23.561 28.441,29.812 22.189,36.064 24.311,38.186 30.562,31.934 36.814,38.186 38.936,36.064 32.684,29.812"></polygon></svg>
+                  </div>
+    
+    
+                </div>
+               
+              </div>
+            </div>
+          </div>
+
+          
+  
+         
+        </li>
+
+       
+    </ul>
+    </div>
+
+    <div class="summary row">
+      <div class="col-md-6">
+        <ul>
+          <li>Subtotal <span>£23.34</span></li>
+          
+          <li>Tax <span>£2.22</span></li>
+          <li class="total">25.56 <span></span></li>
+        </ul>
+      </div>
+     
+    <div class="col-md-6">
+      <div class="checkout">
+        <button type="button">Check Out</button>
+      </div>
+    </div>
+
+   
+    
+      </div>
+
+    </section>
+
+    <section class="container cart-container">
+      
+    </section>
+
+    
+      <!-- <div v-else class="empty-product">
+        <h3>There are no products in your cart.</h3>
+        <button>Shopping now</button>
+      </div> -->
+   </div>
+  
+{% endblock %}
