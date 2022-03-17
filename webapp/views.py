@@ -36,7 +36,7 @@ def add_product(id):
     if manualform.validate_on_submit():
             #add user to database
             user_to_get_store = User.query.get_or_404(id)
-            f= manualform.upload.data
+            f = manualform.upload.data
             pic_filename = secure_filename(f.filename)
             #set pic name
             pic_name = str(uuid.uuid1()) + "_" + pic_filename

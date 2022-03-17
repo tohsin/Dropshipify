@@ -10,7 +10,7 @@
                             <h6 style="font-family: lato !important; " >BEST QUALITY BAGS</h6>
                             <h1 style="font-family: lora !important; font-size: 70px !important;">Shop from Luxury!</h1>
                             <p style="font-family: lato !important;" >Buy the hottest and trendiest bags at amazing prices.</p>
-                            <button class="my-btn btn"><i class="fas fa-cart-arrow-down"></i> Shop Now</button>
+                            <button class="my-btn btn" ><i class="fas fa-cart-arrow-down"></i> Shop Now</button>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,9 @@
                                         </div>
                                         <div class="card-content">
                                            
-                                            <div class="product-img"><img src="/static/images/dior.png" alt="" style="height: 200px !important;" /></div>
+                                            <div class="product-img">
+                                                <img src="/static/images/dior.png" alt="" style="height: 200px !important;" />
+                                            </div>
                                         </div>
                                         <div class="card-description">
                                             <div class="row">
@@ -95,14 +97,15 @@
                             {% for prod in products %}
                             <div class="col-md-3">
                                 <div class="product">
-                                    <a id="product_link" href="home.html">
+                                    <a  href="{{ url_for('views.product_detail', product_id = prod.id )}}" >
                                         <div class="card">
                                             <div class="top-bar">
                                                 <span class="float-right lnr lnr-heart"></span>
                                             </div>
                                             <div class="card-content">
                                                
-                                                <div class="product-img"><img src="{{ url_for('static', filename='products/' + prod.product_image)}}" alt="" style="height: 200px !important;" /></div>
+                                                <div class="product-img"><img src="{{ url_for('static', filename='products/' + prod.product_image)}}" alt="" style="height: 200px !important;" />
+                                                </div>
                                             </div>
                                             <div class="card-description">
                                                 <div class="row">

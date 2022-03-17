@@ -1,10 +1,12 @@
 
 
+import imp
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 from flask_migrate import Migrate
+import click
 from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
@@ -23,9 +25,11 @@ def create_app():
    
     from .views import views
     from .auth import auth
+    from .cmd import cmd
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(cmd)
 
     from .models import User
     login_manager = LoginManager()
@@ -42,13 +46,8 @@ def create_app():
     #     db.drop_all()
     #     db.create_all()
     #     print('initialised database')
-    # @app.cli.add_command('bootstrap')
-    # def bootstrap_data():
-    #     db.drop_all()
-    #     db.create_all()
-    #     db.session.add(
-    #         User(email='tosin1@gmail.com',)
-    #     )
+    
+  
         
     return app
 
