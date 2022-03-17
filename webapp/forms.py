@@ -46,9 +46,9 @@ class CreateProduct(FlaskForm):
     product_name = StringField('Product Name', validators=[DataRequired(),Length(min=2)])
     price = IntegerField('Price', validators=[DataRequired()])
     ansii = StringField('Ansii Number' )
-    product_link = StringField('Link If Any' )
+    product_link = StringField('Link If Any')
     number_available = IntegerField('Number Available', validators=[DataRequired()])
-    product_description = TextAreaField("Product Description" ,validators=[DataRequired(),Length(min=20)])
+    product_description = TextAreaField("Product Description", validators=[DataRequired(),Length(min=5)])
     upload = FileField('Product Image', validators=[
         FileAllowed(['jpg', 'png','jpeg'], 'Images only!')])
     submit = SubmitField('Add Product')
