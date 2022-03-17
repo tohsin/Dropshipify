@@ -99,9 +99,10 @@
                                 <div class="product">
                                     <a  href="{{ url_for('views.product_detail', product_id = prod.id )}}" >
                                         <div class="card">
-                                            <div class="top-bar">
+                                          <a href="ss.html">  <div class="top-bar">
                                                 <span class="float-right lnr lnr-heart"></span>
                                             </div>
+                                        </a>
                                             <div class="card-content">
                                                 <div class="product-img">
                                                     <img src="{{ url_for('static', filename='products/' + prod.product_image)}}" alt="" style="height: 200px !important;" />
@@ -116,9 +117,9 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2">
-                                                        <div class="cart">
+                                                        <a href="fd.html"><div class="cart">
                                                             <span class="lnr lnr-cart"> </span>
-                                                        </div>
+                                                        </div></a>
                                                     </div>
                                                 </div>
                                             </div>
