@@ -103,8 +103,8 @@
                                                 <span class="float-right lnr lnr-heart"></span>
                                             </div>
                                             <div class="card-content">
-                                               
-                                                <div class="product-img"><img src="{{ url_for('static', filename='products/' + prod.product_image)}}" alt="" style="height: 200px !important;" />
+                                                <div class="product-img">
+                                                    <img src="{{ url_for('static', filename='products/' + prod.product_image)}}" alt="" style="height: 200px !important;" />
                                                 </div>
                                             </div>
                                             <div class="card-description">
@@ -113,7 +113,6 @@
                                                         <div class="title">
                                                             <h6>{{prod.product_name}}</h6>
                                                             <p>{{"£"}}{{'%0.2f'| format(32.4|float)}}</p>
-                                                            
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2">
@@ -129,14 +128,10 @@
                                                 <span>blue bag</span>
                                             </div>
                                         </div>
-
-
                                     </a>
                                     
                                 </div>
                             </div>
-                      
-                                  
                             {% endfor %}
                          
                         </div>
