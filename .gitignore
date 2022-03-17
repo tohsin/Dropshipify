@@ -1,3 +1,4 @@
 /webapp/database.db
 venv/   
 env/
+/webapp/__pycache__
