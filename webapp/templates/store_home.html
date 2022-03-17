@@ -47,7 +47,7 @@
                                         </div>
                                         <div class="card-content">
                                            
-                                            <div class="product-img"><img src="/static/images/dior.png" alt="" /></div>
+                                            <div class="product-img"><img src="/static/images/dior.png" alt="" style="height: 200px !important;" /></div>
                                         </div>
                                         <div class="card-description">
                                             <div class="row">
@@ -95,36 +95,41 @@
                             {% for prod in products %}
                             <div class="col-md-3">
                                 <div class="product">
-                                    <div class="card">
-                                        <div class="top-bar">
-                                            <span class="float-right lnr lnr-heart"></span>
-                                        </div>
-                                        <div class="card-content">
-                                           
-                                            <div class="product-img"><img src="{{ url_for('static', filename='products/' + prod.product_image)}}" alt="" /></div>
-                                        </div>
-                                        <div class="card-description">
-                                            <div class="row">
-                                                <div class="col-md-10">
-                                                    <div class="title">
-                                                        <h6>{{prod.product_name}}</h6>
-                                                        <p>{{"£"}}{{'%0.2f'| format(32.4|float)}}</p>
-                                                        
+                                    <a id="product_link" href="home.html">
+                                        <div class="card">
+                                            <div class="top-bar">
+                                                <span class="float-right lnr lnr-heart"></span>
+                                            </div>
+                                            <div class="card-content">
+                                               
+                                                <div class="product-img"><img src="{{ url_for('static', filename='products/' + prod.product_image)}}" alt="" style="height: 200px !important;" /></div>
+                                            </div>
+                                            <div class="card-description">
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <div class="title">
+                                                            <h6>{{prod.product_name}}</h6>
+                                                            <p>{{"£"}}{{'%0.2f'| format(32.4|float)}}</p>
+                                                            
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="cart">
-                                                        <span class="lnr lnr-cart"> </span>
+                                                    <div class="col-md-2">
+                                                        <div class="cart">
+                                                            <span class="lnr lnr-cart"> </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="card-footer">
+                                                <span>hand bag</span>
+                                                <span>dior</span>
+                                                <span>blue bag</span>
+                                            </div>
                                         </div>
-                                        <div class="card-footer">
-                                            <span>hand bag</span>
-                                            <span>dior</span>
-                                            <span>blue bag</span>
-                                        </div>
-                                    </div>
+
+
+                                    </a>
+                                    
                                 </div>
                             </div>
                       

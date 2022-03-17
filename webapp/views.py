@@ -107,6 +107,44 @@ def view_cart(user_id):
     return render_template("view_cart.html", 
                            user = current_user,
                            items = items)
+
+@views.route('/pending-orders/<int:user_id>', methods = [ "GET"])
+def view_pending_orders(user_id):
+    if not current_user.is_authenticated:
+            return redirect(url_for('auth.login'))
+    user = User.query.get_or_404(user_id)
+    if user is None:
+        abort(404)
+    # items = Pending_orders.query.filter_by(user_id = user_id, done = False)
+    return render_template("pending_orders.html", 
+                           user = current_user
+                           )
+
+
+@views.route('/order-history/<int:user_id>', methods = [ "GET"])
+def view_order_history(user_id):
+    if not current_user.is_authenticated:
+            return redirect(url_for('auth.login'))
+    user = User.query.get_or_404(user_id)
+    if user is None:
+        abort(404)
+    # items = Pending_orders.query.filter_by(user_id = user_id, done = False)
+    return render_template("order_history.html", 
+                           user = current_user,
+                           )
+
+@views.route('/view-products/<int:user_id>', methods = [ "GET"])
+def view_products(user_id):
+    if not current_user.is_authenticated:
+            return redirect(url_for('auth.login'))
+    user = User.query.get_or_404(user_id)
+    if user is None:
+        abort(404)
+    # items = Pending_orders.query.filter_by(user_id = user_id, done = False)
+    return render_template("view_products.html", 
+                           user = current_user,
+                           )
+
 # @main.route('/move-to-cart', methods = [ "POST"])
 # @login_required
 # def moveToCart():
