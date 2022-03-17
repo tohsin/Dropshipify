@@ -130,8 +130,7 @@ def view_order_history(user_id):
         abort(404)
     # items = Pending_orders.query.filter_by(user_id = user_id, done = False)
     return render_template("order_history.html", 
-                           user = current_user,
-                           )
+                           user = current_user)
 
 @views.route('/view-products/<int:user_id>', methods = [ "GET"])
 def view_products(user_id):
@@ -142,8 +141,7 @@ def view_products(user_id):
         abort(404)
     # items = Pending_orders.query.filter_by(user_id = user_id, done = False)
     return render_template("view_products.html", 
-                           user = current_user,
-                           )
+                           user = current_user)
 
 # @main.route('/move-to-cart', methods = [ "POST"])
 # @login_required
@@ -162,6 +160,7 @@ def view_products(user_id):
 @login_required
 def addToCart():
     data = json.loads(request.data)
+    print(data)
     userid = data['userid']
     productid = data['productid']
     cartItem = Cart(product_id = productid, user_id= userid)
