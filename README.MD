@@ -10,3 +10,9 @@ $ py -3 -m venv venv
 
 Activate virtual environment:
 venv\Scripts\activate
+
+tell flask whicj app to use
+export FLASK_APP=main.py
+
+then create dummy data with command
+flask test
