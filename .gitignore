@@ -2,4 +2,8 @@
 venv/   
 env/
 /webapp/__pycache__
+<<<<<<< Updated upstream
 /__pycache__
+=======
+tempCodeRunnerFile.py
+>>>>>>> Stashed changes
