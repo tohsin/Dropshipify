@@ -13,7 +13,7 @@ def test():
         db.create_all()
         print('***** Datebase created ****')
         db.session.add(
-            User(email='lilynw@gmail.com', password=generate_password_hash('elysium8', method='sha256'),first_name= 'Lily', last_name='nwobodo',\
+            User(email='lily@gmail.com', password=generate_password_hash('elysium8', method='sha256'),first_name= 'Lily', last_name='nwobodo',\
                 mailing_address = 'abuja under the left side of love', city= 'abuja',\
                     state = 'Abuja', zip_ = '23424',mailing_phone_number="+23495896056"))
         db.session.add(

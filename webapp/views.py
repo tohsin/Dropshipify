@@ -161,11 +161,12 @@ def view_products(user_id):
 def addToCart():
     data = json.loads(request.data)
     print(data)
-    userid = data['userid']
+    print(current_user.id)
+    print('happy')
     productid = data['productid']
-    cartItem = Cart(product_id = productid, user_id= userid)
-    db.session.add(cartItem)
-    db.session.commit()
+    # cartItem = Cart(product_id = productid, user_id = current_user.id)
+    # db.session.add(cartItem)gi
+    # db.session.commit()
     flash ("Item succesfully addded to Cart", category='success')
     return jsonify({})
 

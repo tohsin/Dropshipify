@@ -1,7 +1,7 @@
-function addToCart(userid,productid){
+function addToCart(productid){
     fetch('/add-cart', {
         method:'Post',
-        body:JSON.stringify({ userid:userid, productid:productid})
+        body:JSON.stringify({productid:productid})
     }).then((_res)=> {
       ;
     });
