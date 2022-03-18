@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for
+from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for , session
 from flask_login import  login_required,current_user
 from webapp.forms import CreateProductFromAmazon, CreateProduct
 from werkzeug.utils import secure_filename
@@ -14,6 +14,7 @@ views = Blueprint('views', __name__)
 @views.route('/', methods = ["GET", "POST"])
 @login_required
 def home():
+    session['info'] = current_user
     return render_template("home.html",user =current_user)
 
 @views.route('/retailer', methods = ["GET", "POST"])
