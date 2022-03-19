@@ -170,38 +170,34 @@ def addToCart():
     # a = db.session.query(User).outerjoin(Order, User.id== Order.id).group_by(#variavle in User.name)
     # Order.query.filter_by(store_id = prod.store_id).first()
     orders = current_user.orders
-    found_store_for_order = False
-    order_v = None
     for order in orders:
+        found_order_with_store = False
         if order.store_id == prod.store_id:
+            found_order_with_store = True
             #found a order id that matches the store id
-            
+            found_order_item_for_product = False
             for order_item in order:
                 #check if we have a product in that order from order item
                 if order_item.product_id == product_id:
                 #we found the product of that cart now we adding to it
-                    order_item_.quantity+=1
+                    found_order_item_for_product = True
+                    order_item.quantity+=1
                     break
-            
-       
-  
-            
-    else:
-        #we didnt find an order attached to user attached to store so we create
-        print('store order didnt exist for user so creating new one')
-        order1 = Order(user_id = current_user.id, store_id = prod.store_id, user=current_user)
+            #if loop finished and we didnt find anything
+            if not found_order_item_for_product:
+                #create order item mapped to product
+                item = OrderItem(order_id = order.id,
+                                product_id = product_id,
+                                order=order)
+                db.session.add(item)
+                db.session.commit()
+            break
+    if not found_order_with_store:
+        order1 = Order(user_id = current_user.id,
+                        store_id = prod.store_id, 
+                        user = current_user)
         db.session.add(order1)
         db.session.commit()
-        #now add the cart item too
-        
-    # order1 = Order(user_id=current_user.id, store_id=prod.store_id)
-    # val = current_user.orders.order_item.query.filter_by(product_id = product_id).first()
-    # print('checking if exists',val)
-    # if not val:
-    #     order1 = Order(user_id=current_user.id, store_id=prod.store_id)
-        
-    
-    flash ("Item succesfully addded to Cart", category='success')
     return jsonify({})
 @views.route('/add-fav', methods = [ "POST"])
 @login_required
