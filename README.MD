@@ -20,7 +20,7 @@ flask test
 
 ### TO DO
 * Add function to add to wishlist
-- [x] #739
-- [ ] Add function to add to wishlist
-- [ ] Come up with proper data structure for order
-
+- [ ] Add toast to signify adding to wish list
+- [x] Add function to add to wishlist
+- [ ] Come up with proper data structure for order -items
+- [ ] 

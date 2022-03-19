@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for , session
-from flask_login import  login_required,current_user
+from flask_login import  login_required, current_user
 from webapp.forms import CreateProductFromAmazon, CreateProduct
 from werkzeug.utils import secure_filename
-from webapp.models import User, Product, Store, Cart
+from webapp.models import User, Product, Store, Order, OrderItem
 import uuid as uuid
 from . import db
 import os
@@ -161,25 +161,23 @@ def view_products(user_id):
 @login_required
 def addToCart():
     data = json.loads(request.data)
-    print(data)
-    print(current_user.id)
-    print('happy')
-    productid = data['productid']
-    # cartItem = Cart(product_id = productid, user_id = current_user.id)
-    # db.session.add(cartItem)gi
-    # db.session.commit()
+    product_id = data['productid']
+    '''first check if we have that order item there should be one unique to each product id per user
+    1 first we access the user orders
+    '''
+    user = User.query.get_or_404(current_user.id)
+    
     flash ("Item succesfully addded to Cart", category='success')
     return jsonify({})
 @views.route('/add-fav', methods = [ "POST"])
 @login_required
 def addToFav():
     data = json.loads(request.data)
-    productid = data['productid']
-    prod = Product.query.get_or_404(productid.id)
+    product_id = data['productid']
+    prod = Product.query.get_or_404(product_id)
     user = User.query.get_or_404(current_user.id)
     user.favoutite_products.append(prod)
     db.session.commit()
-    print("added")
     return jsonify({})
 
 
