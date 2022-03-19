@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, render_template, request, flash, redirect, url_for , session
-from flask_login import  login_required,current_user
+from flask_login import  login_required, current_user
 from webapp.forms import CreateProductFromAmazon, CreateProduct
 from werkzeug.utils import secure_filename
-from webapp.models import User, Product, Store, Cart
+from webapp.models import User, Product, Store, Order, OrderItem
 import uuid as uuid
 from . import db
 import os
@@ -161,25 +161,53 @@ def view_products(user_id):
 @login_required
 def addToCart():
     data = json.loads(request.data)
-    print(data)
-    print(current_user.id)
-    print('happy')
-    productid = data['productid']
-    # cartItem = Cart(product_id = productid, user_id = current_user.id)
-    # db.session.add(cartItem)gi
-    # db.session.commit()
-    flash ("Item succesfully addded to Cart", category='success')
+    product_id = data['productid']
+    
+    '''first check if we have that order item there should be one unique to each product id per user
+    1 first we access the user orders
+    '''
+    prod = Product.query.get_or_404(product_id)
+    # a = db.session.query(User).outerjoin(Order, User.id== Order.id).group_by(#variavle in User.name)
+    # Order.query.filter_by(store_id = prod.store_id).first()
+    orders = current_user.orders
+    for order in orders:
+        found_order_with_store = False
+        if order.store_id == prod.store_id:
+            found_order_with_store = True
+            #found a order id that matches the store id
+            found_order_item_for_product = False
+            for order_item in order:
+                #check if we have a product in that order from order item
+                if order_item.product_id == product_id:
+                #we found the product of that cart now we adding to it
+                    found_order_item_for_product = True
+                    order_item.quantity+=1
+                    break
+            #if loop finished and we didnt find anything
+            if not found_order_item_for_product:
+                #create order item mapped to product
+                item = OrderItem(order_id = order.id,
+                                product_id = product_id,
+                                order=order)
+                db.session.add(item)
+                db.session.commit()
+            break
+    if not found_order_with_store:
+        order1 = Order(user_id = current_user.id,
+                        store_id = prod.store_id, 
+                        user = current_user)
+        db.session.add(order1)
+        db.session.commit()
     return jsonify({})
 @views.route('/add-fav', methods = [ "POST"])
 @login_required
 def addToFav():
     data = json.loads(request.data)
-    productid = data['productid']
-    prod = Product.query.get_or_404(productid.id)
+    product_id = data['productid']
+    prod = Product.query.get_or_404(product_id)
     user = User.query.get_or_404(current_user.id)
     user.favoutite_products.append(prod)
     db.session.commit()
-    print("added")
     return jsonify({})
 
 

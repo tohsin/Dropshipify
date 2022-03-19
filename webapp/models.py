@@ -29,10 +29,6 @@ product_niches = db.Table('product_niches',
     db.Column('niche_id', db.Integer, db.ForeignKey('niche.id'))
 )
 
-cart_order = db.Table('cart_order',
-    db.Column('cart_id', db.Integer, db.ForeignKey('cart.id')),
-    db.Column('order_id', db.Integer, db.ForeignKey('order.id'))
-)
 '''end of many tp many tables'''
 
 class User(db.Model, UserMixin):
@@ -48,6 +44,7 @@ class User(db.Model, UserMixin):
     zip_ = db.Column(db.String(150) )
     mailing_phone_number = db.Column(db.String(150))
     store = db.relationship("Store", uselist=False)
+    orders = db.relationship("Order", backref='user',lazy='dynamic')
     favoutite_stores = db.relationship("Store",secondary = favourite_shops)
     favoutite_products = db.relationship("Product", secondary = favourite_products, backref ='products')
     favoutite_niche = db.relationship("Niche",secondary = favourite_niche)
@@ -68,6 +65,7 @@ class Store(db.Model):
     niches = db.relationship("Niche", secondary = store_niches)
     products = db.relationship("Product",backref='store', lazy='dynamic')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    orders = db.relationship("Order")
     
 class Product(db.Model):
     id = db.Column(db.Integer,primary_key = True)
@@ -93,19 +91,19 @@ class Sales(db.Model):
     date_sale = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     
-class Cart(db.Model):
-    id = db.Column(db.Integer,primary_key = True)
-    date_created = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    done = db.Column(db.Boolean, default = False)
-class State:
-    default = 0
-    shipping = 1
-    shipped = 2
+
+
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    cart = db.relationship("Cart", secondary = cart_order)
-    status =  db.Column(db.Integer, default = State.default)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    store_id = db.Column(db.Integer, db.ForeignKey('store.id'))
     date_created = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
-    date_shipped = db.Column(db.DateTime(timezone = True) ,nullable = True)
+    date_due = db.Column(db.DateTime(timezone = True) ,nullable = True)
+    order_item = db.relationship("OrderItem",backref='order',lazy='dynamic')#1 to many
+    
+class OrderItem(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    quantity = db.Column(db.Numeric, default = 1)
+     
