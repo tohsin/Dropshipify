@@ -18,7 +18,7 @@ then create dummy data with command
 flask test
 
 
-### TO DO
+### TO DO 
 * Add function to add to wishlist
 - [ ] Add toast to signify adding to wish list
 - [x] Add function to add to wishlist
