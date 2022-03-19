@@ -99,7 +99,7 @@
                                 <div class="product">
                                     <a  href="{{ url_for('views.product_detail', product_id = prod.id )}}" >
                                         <div class="card">
-                                          <a href="ss.html">  <div class="top-bar">
+                                          <a onclick='addToFav({{prod.id}})'>  <div class="top-bar">
                                                 <span class="float-right lnr lnr-heart"></span>
                                             </div>
                                         </a>
