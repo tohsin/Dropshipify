@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;1,100&family=Lora&display=swap');
 
 a{
 	color: #75b61ac2;
@@ -811,4 +812,35 @@ p.desc strong{
   
   .cart-container{
       align-items: center !important;
+  }
+
+  #product_link{
+    text-decoration: none !important;
+    color: #212121 !important;
+  }
+
+  table {
+    font-family: 'Lato', sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  .page_title{
+    font-family: 'Lora', serif;
+    font-size: 24px !important;
+  }
+
+  a{
+    text-decoration: none !important;
+    color: #212121 !important;
   }
