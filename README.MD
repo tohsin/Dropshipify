@@ -43,5 +43,6 @@ UI Pages:
 - [ ] Retailer Store Home
 - [ ]  Shopper Home
 - [ ]  Check out page
+- [ ]  Product detail
 
 

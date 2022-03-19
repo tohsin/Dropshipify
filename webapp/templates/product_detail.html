@@ -5,16 +5,20 @@
   <div class="card product-card">
     <section class="product-body row">
       <div class="col-md-5">
-       <div class="col-md-6"><img class="head-img" src="/static/images/bag2.png" style="max-width:200px !important" alt="" /></div>
+       <div class="col-md-6">
+         <img class="head-img" src="{{ url_for('static', filename='products/' + product.product_image)}}" style="max-width:200px !important" alt="" />
+        </div>
       </div>
       <div class="col-md-7">
         <div class="product-title">
-          <h1>Gamora Bag</h1>
-          <span class="price">£388.72</span>
+          <h1>{{product.product_name}}</h1>
+          <span class="price">{{"£"}}{{'%0.2f'| format(product.price|float)}}</span>
         </div>
         <span class="product-cat">Dior Essentials</span>
         <span class="product-sku">Product id: 11002cc</span>
-        <p class="desc"><strong>Description</strong><br>100% pure 2 ply cotton: super 100's/2 both ways; traditional making loose-lining collar/cuffs; first choice mother-of-peral buttons; regular fit; classic collar; single cuff.</p>
+        <p class="desc"><strong>Description</strong>
+          <br />100% pure 2 ply cotton: super 100's/2 both ways; traditional making loose-lining collar/cuffs; first choice mother-of-peral buttons; regular fit; classic collar; single cuff.
+        </p>
         <!-- <p class="desc"><strong>Colour Options</strong></p> -->
         <div class="buttons">
           <div class="row button-container">
@@ -33,8 +37,4 @@
     
   </div>
 </div>
- 
-    
-  
-
 {% endblock %}
