@@ -162,10 +162,44 @@ def view_products(user_id):
 def addToCart():
     data = json.loads(request.data)
     product_id = data['productid']
+    
     '''first check if we have that order item there should be one unique to each product id per user
     1 first we access the user orders
     '''
-    user = User.query.get_or_404(current_user.id)
+    prod = Product.query.get_or_404(product_id)
+    # a = db.session.query(User).outerjoin(Order, User.id== Order.id).group_by(#variavle in User.name)
+    # Order.query.filter_by(store_id = prod.store_id).first()
+    orders = current_user.orders
+    found_store_for_order = False
+    order_v = None
+    for order in orders:
+        if order.store_id == prod.store_id:
+            #found a order id that matches the store id
+            
+            for order_item in order:
+                #check if we have a product in that order from order item
+                if order_item.product_id == product_id:
+                #we found the product of that cart now we adding to it
+                    order_item_.quantity+=1
+                    break
+            
+       
+  
+            
+    else:
+        #we didnt find an order attached to user attached to store so we create
+        print('store order didnt exist for user so creating new one')
+        order1 = Order(user_id = current_user.id, store_id = prod.store_id, user=current_user)
+        db.session.add(order1)
+        db.session.commit()
+        #now add the cart item too
+        
+    # order1 = Order(user_id=current_user.id, store_id=prod.store_id)
+    # val = current_user.orders.order_item.query.filter_by(product_id = product_id).first()
+    # print('checking if exists',val)
+    # if not val:
+    #     order1 = Order(user_id=current_user.id, store_id=prod.store_id)
+        
     
     flash ("Item succesfully addded to Cart", category='success')
     return jsonify({})

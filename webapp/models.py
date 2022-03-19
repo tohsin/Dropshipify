@@ -29,10 +29,6 @@ product_niches = db.Table('product_niches',
     db.Column('niche_id', db.Integer, db.ForeignKey('niche.id'))
 )
 
-cart_order = db.Table('cart_order',
-    db.Column('cart_id', db.Integer, db.ForeignKey('cart.id')),
-    db.Column('order_id', db.Integer, db.ForeignKey('order.id'))
-)
 '''end of many tp many tables'''
 
 class User(db.Model, UserMixin):
@@ -48,7 +44,7 @@ class User(db.Model, UserMixin):
     zip_ = db.Column(db.String(150) )
     mailing_phone_number = db.Column(db.String(150))
     store = db.relationship("Store", uselist=False)
-    orders = db.relationship("Order")
+    orders = db.relationship("Order", backref='user',lazy='dynamic')
     favoutite_stores = db.relationship("Store",secondary = favourite_shops)
     favoutite_products = db.relationship("Product", secondary = favourite_products, backref ='products')
     favoutite_niche = db.relationship("Niche",secondary = favourite_niche)
@@ -103,10 +99,10 @@ class Order(db.Model):
     store_id = db.Column(db.Integer, db.ForeignKey('store.id'))
     date_created = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
     date_due = db.Column(db.DateTime(timezone = True) ,nullable = True)
-    order_item = db.relationship("OrderItem",backref='Order', lazy='dynamic')#1 to many
+    order_item = db.relationship("OrderItem",backref='order',lazy='dynamic')#1 to many
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    quantity = db.Column(db.Numeric)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    quantity = db.Column(db.Numeric, default = 1)
      
