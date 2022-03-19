@@ -14,7 +14,7 @@ views = Blueprint('views', __name__)
 @views.route('/', methods = ["GET", "POST"])
 @login_required
 def home():
-    session['info'] = current_user
+    # session['info'] = current_user
     return render_template("home.html",user =current_user)
 
 @views.route('/retailer', methods = ["GET", "POST"])
@@ -170,6 +170,18 @@ def addToCart():
     # db.session.commit()
     flash ("Item succesfully addded to Cart", category='success')
     return jsonify({})
+@views.route('/add-fav', methods = [ "POST"])
+@login_required
+def addToFav():
+    data = json.loads(request.data)
+    productid = data['productid']
+    prod = Product.query.get_or_404(productid.id)
+    user = User.query.get_or_404(current_user.id)
+    user.favoutite_products.append(prod)
+    db.session.commit()
+    print("added")
+    return jsonify({})
+
 
 
 # <button type='button' class='close' onclick='addToCart({{user.id, product.id}})'>

@@ -15,6 +15,10 @@ favourite_niche = db.Table('favourite_niche',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('favourite_niche_id', db.Integer, db.ForeignKey('niche.id'))
 )
+favourite_products = db.Table('favourite_products',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('favourite_product_id', db.Integer, db.ForeignKey('product.id'))
+)
 
 store_niches = db.Table('store_niches',
     db.Column('store_id', db.Integer, db.ForeignKey('store.id')),
@@ -45,6 +49,7 @@ class User(db.Model, UserMixin):
     mailing_phone_number = db.Column(db.String(150))
     store = db.relationship("Store", uselist=False)
     favoutite_stores = db.relationship("Store",secondary = favourite_shops)
+    favoutite_products = db.relationship("Product", secondary = favourite_products, backref ='products')
     favoutite_niche = db.relationship("Niche",secondary = favourite_niche)
     def __repr__(self):
         return '<User {}>'.format(self.email)

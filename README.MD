@@ -16,3 +16,11 @@ export FLASK_APP=main.py
 
 then create dummy data with command
 flask test
+
+
+### TO DO
+* Add function to add to wishlist
+- [x] #739
+- [ ] Add function to add to wishlist
+- [ ] Come up with proper data structure for order
+
