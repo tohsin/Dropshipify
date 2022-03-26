@@ -86,20 +86,19 @@ class Product(db.Model):
 class Niche(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     name = db.Column(db.String(150))
+    
 class Sales(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     date_sale = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     
-
-
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     store_id = db.Column(db.Integer, db.ForeignKey('store.id'))
     date_created = db.Column(db.DateTime(timezone = True) ,default = datetime.now)
     date_due = db.Column(db.DateTime(timezone = True) ,nullable = True)
-    order_item = db.relationship("OrderItem",backref='order',lazy='dynamic')#1 to many
+    order_item = db.relationship("OrderItem", backref='order',lazy='dynamic')#1 to many
     
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key = True)
