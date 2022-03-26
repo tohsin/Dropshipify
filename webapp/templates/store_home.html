@@ -97,10 +97,10 @@
                             {% for prod in products %}
                             <div class="col-md-3">
                                 <div class="product">
-                                    <a  href="{{ url_for('views.product_detail', product_id = prod.id )}}" >
+                                    <!-- <a  href="{{ url_for('views.product_detail', product_id = prod.id )}}" > -->
                                         <div class="card">
-                                          <a onclick='addToFav({{prod.id}})'>  <div class="top-bar">
-                                                <span class="float-right lnr lnr-heart"></span>
+                                          <a href="{{ url_for('views.product_detail', product_id = prod.id )}}">  <div class="top-bar">
+                                                <span class="float-right lnr lnr-eye"></span>
                                             </div>
                                         </a>
                                             <div class="card-content">
@@ -110,11 +110,17 @@
                                             </div>
                                             <div class="card-description">
                                                 <div class="row">
-                                                    <div class="col-md-10">
+                                                    <div class="col-md-8">
                                                         <div class="title">
                                                             <h6>{{prod.product_name}}</h6>
                                                             <p>{{"£"}}{{'%0.2f'| format(prod.price|float)}}</p>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a onclick='addToFav({{prod.id}})'>  <div class="fav">
+                                                            <span class="lnr lnr-heart"></span>
+                                                        </div>
+                                                    </a>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <a onclick='addToCart({{prod.id}})'>
@@ -130,7 +136,7 @@
                                                 <span>blue bag</span>
                                             </div>
                                         </div>
-                                    </a>
+                                    <!-- </a> -->
                                     
                                 </div>
                             </div>
