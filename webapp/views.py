@@ -160,6 +160,7 @@ def view_products(user_id):
 @views.route('/add-cart', methods = [ "POST"])
 @login_required
 def addToCart():
+    print('add cart')
     data = json.loads(request.data)
     product_id = data['productid']
     
@@ -202,6 +203,7 @@ def addToCart():
 @views.route('/add-fav', methods = [ "POST"])
 @login_required
 def addToFav():
+    print('got hit')
     data = json.loads(request.data)
     product_id = data['productid']
     prod = Product.query.get_or_404(product_id)
