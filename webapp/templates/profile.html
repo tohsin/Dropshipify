@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %} 
+Profile
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        {{user.first_name}}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Profile</h5>
+      <p class="card-text">
+        <strong> First Name: </strong>
+        {{user.first_name}}<br/>
+       
+       <strong>Last Name: </strong>
+       {{user.last_name}} <br/>
+       
+       <strong> Email: </strong>
+       {{user.email}}<br/>
+       
+       <strong> Mailing address: </strong>
+       {{user.mailing_address}}<br/>
+       <strong> State: </strong>
+       {{user.state}}<br/>
+       <strong> City: </strong>
+       {{user.city}}<br/>
+       <strong> Zip: </strong>
+       {{user.zip_}}<br/>
+       
+       <strong> Mailing Phone Number: </strong>
+       {{ user.mailing_phone_number }}<br/>
+       
+       {% if user.is_retailer %}
+       <strong> Store Name: </strong>
+            {{user.store.store_name}}<br/>
+          
+       {% endif %}
+
+      </p>
+      <a href="{{ url_for('auth.update',id = user.id )}}" class="btn btn-primary">Edit Profile</a>
+      {% if not user.is_retailer %}
+        <a href="{{ url_for('auth.sign_up_retailer', id = user.id )}}" class="btn btn-primary" >Sign Up As Retailer</a>
+       
+      {% endif %}
+    </div>
+</div>
+
+{% endblock %}

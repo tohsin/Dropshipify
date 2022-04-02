@@ -187,6 +187,9 @@ footer#footer {
         float: right;
     }
     
+    .top-bar{
+      padding-right: 10px !important;
+    }
     .card-content{
         display: flex;
         justify-content: center;
@@ -226,6 +229,11 @@ footer#footer {
         margin-bottom: 0px !important;
 
     }
+    .card-description .fav{
+      margin-top: 50px !important;
+      margin-bottom: 0px !important;
+
+  }
     .card-description .title {
         text-transform: uppercase;
         text-align: left;
@@ -237,6 +245,10 @@ footer#footer {
         float: right;
         cursor: pointer;
     }
+    .card-description >.fav {
+      float: right;
+      cursor: pointer;
+  }
     .title p{
         font-size: 12px !important;
         font-weight: normal;
