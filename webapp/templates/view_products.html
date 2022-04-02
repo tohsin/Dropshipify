@@ -1,0 +1,37 @@
+{% extends "retailer_base.html" %} 
+{% block content%}
+<section>
+  <div>
+    <h1 class="page_title"> Inventory </h1>
+  </div>
+  <div class="card">
+    <table>
+      <tr>
+        <th>id</th>
+        <th>Product Name/th>
+        <th>Product Source</th>
+        <th>Quantity</th>
+        <th>Buy Price</th>
+        <th>Sell Price</th>
+        <th> Remove Product</th>
+      </tr>
+      <tr>
+        {% for i in [1,2,3,4] %}
+        <td>{{i}}</td>
+        <td>Dior bag</td>
+        <td>link</td>
+        <td>2</td>
+        <td>£43.23</td>
+        <td>£60.00</td>
+        <td><a target="_blank" href="" class="bton " id="cart-btn" style="background-color: #ed0024; color: white;">Delete </a></td>
+      </tr>
+      {% endfor %}
+      
+    </table>
+
+  </div>
+  
+</section>
+
+
+  {% endblock %}
