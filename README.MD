@@ -22,12 +22,11 @@ flask test
 * Add function to add to wishlist
 - [ ] Add toast to signify adding to wish list
 - [x] Add function to add to wishlist
-- [ ] Come up with proper data structure for order -items
-- [ ] 
-
-- [ ]  Add to cart button should populate cart/order table with the item. 
-- [ ] Wishlist button should add the item to wishlist object/table/
-- [ ]  View cart page should display all items in the user's cart
+- [x] Come up with proper data structure for order -items
+- [x]  Add to cart button should populate cart/order table with the item. 
+- [x] Wishlist button should add the item to wishlist object/table/
+- [ ]  View cart page should display all items in the user's cart back end
+- [ ]  View cart page should display all items in the user's cart ui
 - [ ]  Delete button for cart items should remove them from the cart
 - [ ]  Changes in Quantity box should be reflected with user input
 - [ ]  Checkout button should at least update the status of the order items to 'pending'
