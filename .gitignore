@@ -9,3 +9,6 @@ webapp/__pycache__/auth.cpython-39.pyc
 webapp/__pycache__/models.cpython-39.pyc
 webapp/__pycache__/views.cpython-39.pyc
 *.pyc
+webapp/__pycache__/auth.cpython-39.pyc
+*.pyc
+*.pyc
